@@ -3,7 +3,7 @@ import './providers/episode.dart';
 import 'package:netflix_clone/screens/movie_details.dart';
 import './screens/dashboard.dart';
 import 'package:provider/provider.dart';
-import './providers/movie.dart';
+import 'providers/movies.dart';
 import './constants/theme.dart';
 import './providers/my_list.dart';
 

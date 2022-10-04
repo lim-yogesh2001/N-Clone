@@ -1,10 +1,11 @@
 import 'dart:ui';
 import "package:flutter/material.dart";
-import 'package:netflix_clone/providers/movie.dart';
+import 'package:netflix_clone/providers/movies.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import '../widgets/movie_details.dart';
 import '../widgets/episodes.dart';
+import '../providers/episode.dart';
 
 class MovieDetails extends StatefulWidget {
   static const routeName = 'movie-details';
@@ -24,11 +25,25 @@ class _MovieDetailsState extends State<MovieDetails>
     _tabController = TabController(length: 2, vsync: this);
   }
 
+  void _showSnackBar(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: const Text('Successfully! Added Movie to list!'),
+        action: SnackBarAction(
+            textColor: Colors.red, label: 'Undo', onPressed: () {}),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final movieId = ModalRoute.of(context)!.settings.arguments as String;
-    final movieProvider = Provider.of<MovieProvider>(context, listen: false);
+    final movieProvider = Provider.of<MovieProvider>(context);
     final movieDetails = movieProvider.findMovieById(movieId);
+    final episodeProvider =
+        Provider.of<EpisodeProvider>(context, listen: false);
+    final episodeList = episodeProvider.filteredEpisodes(movieId);
+    final trailer = episodeProvider.trailers(movieId);
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -131,10 +146,12 @@ class _MovieDetailsState extends State<MovieDetails>
                     )),
               )
             ]),
-            Details(
-              movieDetails: movieDetails,
-              rateFunction: () =>
-                  Provider.of<MovieProvider>(context).toggleRate(),
+            ChangeNotifierProvider.value(
+              value: movieDetails,
+              child: Details(
+                movieDetails: movieDetails,
+                snackBarFunction: () => _showSnackBar(context),
+              ),
             ),
             const SizedBox(
               height: 5.0,
@@ -142,7 +159,12 @@ class _MovieDetailsState extends State<MovieDetails>
             const Divider(
               color: Colors.grey,
             ),
-            ShowEpisodes(movieId: movieId, tabController: _tabController)
+            ShowEpisodes(
+              movieId: movieId,
+              tabController: _tabController,
+              episodeList: episodeList,
+              trailer: trailer,
+            )
           ],
         ),
       ),

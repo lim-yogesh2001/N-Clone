@@ -8,7 +8,8 @@ class MyListProvider with ChangeNotifier {
         'm1',
         'My Hero Academia',
         'https://m.media-amazon.com/images/M/MV5BMGI5NjVkMTQtZDhlYy00NDAwLWIxMWYtMGQyM2MxN2JlNzU5XkEyXkFqcGdeQXVyMTA3MDk2NDg2._V1_.jpg',
-        '23 min',
+         DateTime(2021),
+         'm1',
         true)
   ];
 
@@ -23,7 +24,6 @@ class MyListProvider with ChangeNotifier {
     );
 
     if (_mylist.asMap().containsKey(itemExisting)) {
-      print("Hello");
       return;
     } else {
       _mylist.insert(
@@ -33,6 +33,7 @@ class MyListProvider with ChangeNotifier {
           list.movieName,
           list.coverImage,
           list.length,
+          list.id,
           list.isAdded,
         ),
       );

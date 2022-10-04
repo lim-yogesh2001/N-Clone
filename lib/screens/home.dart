@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../widgets/movie_card.dart';
-import '../providers/movie.dart';
+import '../providers/movies.dart';
 import '../screens/mylist.dart';
 import './movies_list.dart';
 
@@ -94,7 +94,7 @@ class TVShows extends StatelessWidget {
                 }),
           ),
           const SizedBox(
-            height: 20.0,
+            height: 15.0,
           ),
           Text(
             "Trending Now",
@@ -113,7 +113,7 @@ class TVShows extends StatelessWidget {
                 }),
           ),
           const SizedBox(
-            height: 20.0,
+            height: 15.0,
           ),
           Text(
             "Soon Available",
@@ -132,7 +132,26 @@ class TVShows extends StatelessWidget {
                     movieName: movieProvider.comingSoonShows[i].name,
                   );
                 }),
-          )
+          ),
+          const SizedBox(
+            height: 15.0,
+          ),
+          Text(
+            "Watch It Again",
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
+          SizedBox(
+            height: 170,
+            width: double.infinity,
+            child: ListView.builder(
+                itemCount: movieProvider.tvShows.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (ctx, i) {
+                  return MovieCard(
+                      id: movieProvider.tvShows[i].id,
+                      imageUrl: movieProvider.tvShows[i].imageUrl);
+                }),
+          ),
         ],
       ),
     );

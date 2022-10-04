@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:netflix_clone/screens/home.dart';
+import './search.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -18,7 +19,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           child: _index == 0
               ? const HomeScreen()
               : _index == 1
-                  ? const Text("Search")
+                  ? const SearchComponent()
                   : _index == 2
                       ? const Text("Comming Soon")
                       : _index == 3

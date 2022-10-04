@@ -3,7 +3,8 @@ class MyList {
   final String id;
   final String movieName;
   final String coverImage;
-  final String length;
+  final DateTime length;
+  final String movieId;
   bool isAdded;
 
   MyList(
@@ -11,6 +12,7 @@ class MyList {
     this.movieName,
     this.coverImage,
     this.length,
+    this.movieId,
     this.isAdded,
   );
 }
